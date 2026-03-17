@@ -20,6 +20,33 @@ warn()    { printf "${YELLOW}[WARN]${NC}  %s\n" "$1" >&2; }
 error()   { printf "${RED}[ERROR]${NC} %s\n" "$1" >&2; exit 1; }
 success() { printf "${GREEN}[DONE]${NC}  %s\n" "$1"; }
 
+# ── Quick relink mode ─────────────────────────────────────────────────────────
+# Usage: bash hooks/install.sh --relink
+# Repairs broken symlinks after moving the toolkit folder.
+if [ "$1" = "--relink" ]; then
+    info "Relinking hooks to $SCRIPT_DIR..."
+    _fixed=0
+    _ok=0
+    for script in safety-guard.sh sensitive-files.sh auto-format.sh \
+                  notify-on-stop.sh context-alert.sh usage-logger.sh; do
+        _target="$HOOKS_DIR/$script"
+        if [ -L "$_target" ]; then
+            if [ -e "$_target" ]; then
+                _ok=$((_ok + 1))
+            else
+                ln -sf "$SCRIPT_DIR/$script" "$_target"
+                _fixed=$((_fixed + 1))
+            fi
+        fi
+    done
+    if [ "$_fixed" -gt 0 ]; then
+        success "Fixed $_fixed broken symlink(s). $_ok already OK."
+    else
+        info "All $_ok symlink(s) already point to correct location."
+    fi
+    exit 0
+fi
+
 # ── Step 1: Check statusline ─────────────────────────────────────────────────
 _has_statusline=0
 if [ -f "$CLAUDE_DIR/statusline-command.sh" ]; then

@@ -21,6 +21,9 @@ Ready-to-use hook scripts for automating Claude Code workflows. Hooks integrate 
 # Install
 bash hooks/install.sh
 
+# Repair broken symlinks after moving the toolkit folder
+bash hooks/install.sh --relink
+
 # Uninstall
 bash hooks/uninstall.sh
 ```

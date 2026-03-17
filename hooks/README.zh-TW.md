@@ -21,6 +21,9 @@
 # 安裝
 bash hooks/install.sh
 
+# 移動資料夾後修復壞掉的 symlinks
+bash hooks/install.sh --relink
+
 # 移除
 bash hooks/uninstall.sh
 ```
