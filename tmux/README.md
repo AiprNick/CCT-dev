@@ -72,6 +72,14 @@ This is controlled by an `if-shell` guard — no empty line when statusline is n
 | `C-a C-l` | Clear history |
 | `C-h/j/k/l` | Navigate panes (vim-tmux-navigator) |
 
+## VS Code Terminal
+
+tmux mouse mode is **automatically disabled** when running inside VS Code's integrated terminal (`$TERM_PROGRAM=vscode`), so native copy/paste works normally.
+
+If you're in a non-VS Code terminal and need to bypass tmux mouse capture:
+- **macOS**: Hold `Option` while selecting text
+- **Linux/Windows**: Hold `Shift` while selecting text
+
 ## Plugins
 
 | Plugin | Purpose |

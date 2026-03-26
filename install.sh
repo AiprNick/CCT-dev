@@ -198,8 +198,9 @@ if [ -f "$TMUX_CONF" ]; then
         cat > "$TMUX_CONF_DIR/tmux.conf" << 'MINCONF'
 # tmux.conf for tmux < 3.2 (no Catppuccin/TPM, basic colors)
 set -g history-limit 102400
-set -g mouse on
-bind -Tcopy-mode MouseDragEnd1Pane send -X copy-selection-no-clear
+# Mouse: enable unless inside VS Code terminal (conflicts with native copy/paste)
+if-shell '[ "$TERM_PROGRAM" != "vscode" ]' \
+  'set -g mouse on; bind -Tcopy-mode MouseDragEnd1Pane send -X copy-selection-no-clear'
 set -gs set-clipboard on
 
 # True color

@@ -72,6 +72,14 @@ bash tmux/deploy.sh user@host [ssh-options]
 | `C-a C-l` | 清除歷史 |
 | `C-h/j/k/l` | 切換窗格（vim-tmux-navigator）|
 
+## VS Code Terminal
+
+在 VS Code 內建終端中，tmux mouse mode 會**自動停用**（偵測 `$TERM_PROGRAM=vscode`），讓原生複製貼上正常運作。
+
+若在其他終端中需要繞過 tmux 滑鼠攔截：
+- **macOS**：按住 `Option` 再選取文字
+- **Linux/Windows**：按住 `Shift` 再選取文字
+
 ## 插件
 
 | 插件 | 用途 |
